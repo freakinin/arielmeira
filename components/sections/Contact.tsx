@@ -33,8 +33,18 @@ export default function Contact() {
             in touch.
           </motion.p>
 
-          <motion.div variants={fadeInUp}>
+          {/* Contact form temporarily disabled - EmailJS configuration in progress */}
+          {/* <motion.div variants={fadeInUp}>
             <ContactForm />
+          </motion.div> */}
+          
+          <motion.div
+            variants={fadeInUp}
+            className="bg-stone-100 p-8 rounded-lg text-center"
+          >
+            <p className="text-stone-600">
+              Contact form coming soon. Please reach out via email or social media.
+            </p>
           </motion.div>
         </motion.div>
       </div>
