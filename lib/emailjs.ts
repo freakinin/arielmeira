@@ -3,22 +3,42 @@ import { ContactFormData } from '@/types'
 
 // EmailJS configuration
 // These will be set via environment variables
-const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || ''
-const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || ''
-const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+// IMPORTANT: For static export, these must be set at BUILD TIME in Vercel
 
-// Debug: Log environment variables (only in development)
+// Try multiple ways to access env vars (for debugging)
+const SERVICE_ID = 
+  (typeof window !== 'undefined' && (window as any).__NEXT_DATA__?.env?.NEXT_PUBLIC_EMAILJS_SERVICE_ID) ||
+  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 
+  ''
+
+const TEMPLATE_ID = 
+  (typeof window !== 'undefined' && (window as any).__NEXT_DATA__?.env?.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID) ||
+  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 
+  ''
+
+const PUBLIC_KEY = 
+  (typeof window !== 'undefined' && (window as any).__NEXT_DATA__?.env?.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) ||
+  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 
+  ''
+
+// Debug: Always log in browser to help troubleshoot
 if (typeof window !== 'undefined') {
-  console.log('EmailJS Environment Variables Check:', {
-    SERVICE_ID: SERVICE_ID || 'MISSING',
-    TEMPLATE_ID: TEMPLATE_ID || 'MISSING',
-    PUBLIC_KEY: PUBLIC_KEY ? 'SET' : 'MISSING',
-    allEnvVars: {
+  console.log('🔍 EmailJS Environment Variables Debug:', {
+    SERVICE_ID: SERVICE_ID || '❌ MISSING',
+    TEMPLATE_ID: TEMPLATE_ID || '❌ MISSING',
+    PUBLIC_KEY: PUBLIC_KEY ? '✅ SET' : '❌ MISSING',
+    'process.env check': {
       NEXT_PUBLIC_EMAILJS_SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'NOT FOUND',
       NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'NOT FOUND',
       NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? 'SET' : 'NOT FOUND',
-    }
+    },
+    'window.__NEXT_DATA__ check': typeof window !== 'undefined' ? (window as any).__NEXT_DATA__?.env : 'N/A'
   })
+  
+  // Show alert if missing (for easier debugging)
+  if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+    console.error('⚠️ EmailJS variables are missing! Check Vercel environment variables.')
+  }
 }
 
 export interface EmailJSResponse {
