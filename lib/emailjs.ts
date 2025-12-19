@@ -6,9 +6,22 @@ import { ContactFormData } from '@/types'
 // IMPORTANT: For static export, these must be set at BUILD TIME in Vercel
 
 // Access environment variables - Next.js embeds NEXT_PUBLIC_ vars at build time
-const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || ''
-const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || ''
-const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+// Using getEnvVar helper to ensure we get the value
+function getEnvVar(key: string): string {
+  if (typeof window !== 'undefined') {
+    // Client-side: check multiple possible locations
+    return (window as any).__NEXT_DATA__?.env?.[key] || 
+           (process as any).env?.[key] || 
+           process.env[key] || 
+           ''
+  }
+  // Server-side
+  return process.env[key] || ''
+}
+
+const SERVICE_ID = getEnvVar('NEXT_PUBLIC_EMAILJS_SERVICE_ID')
+const TEMPLATE_ID = getEnvVar('NEXT_PUBLIC_EMAILJS_TEMPLATE_ID')
+const PUBLIC_KEY = getEnvVar('NEXT_PUBLIC_EMAILJS_PUBLIC_KEY')
 
 // Debug: Always log in browser to help troubleshoot
 if (typeof window !== 'undefined') {
