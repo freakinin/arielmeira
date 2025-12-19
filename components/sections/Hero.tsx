@@ -12,7 +12,7 @@ export default function Hero() {
       style={{
         backgroundImage: 'url(/images/hero/m1.jpg)',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center top',
         backgroundRepeat: 'no-repeat',
       }}
     >
