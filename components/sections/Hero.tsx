@@ -10,7 +10,7 @@ export default function Hero() {
       id="hero"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
       style={{
-        backgroundImage: 'url(/images/hero/project-ariel-meira.jpg)',
+        backgroundImage: 'url(/images/hero/m1.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
