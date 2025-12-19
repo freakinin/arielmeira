@@ -34,12 +34,32 @@ export const sendEmail = async (
       success: true,
       message: 'Thank you for your message. We will get back to you soon.',
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('EmailJS error:', error)
+    console.error('Error details:', {
+      serviceId: SERVICE_ID,
+      templateId: TEMPLATE_ID,
+      publicKey: PUBLIC_KEY ? 'Set' : 'Missing',
+      errorMessage: error?.text || error?.message || 'Unknown error',
+      status: error?.status,
+    })
+    
+    // Provide more helpful error messages
+    let errorMessage = 'Sorry, there was an error sending your message. Please try again later.'
+    
+    if (error?.status === 400) {
+      errorMessage = 'Invalid request. Please check your EmailJS template configuration.'
+    } else if (error?.status === 401) {
+      errorMessage = 'Authentication failed. Please check your EmailJS public key.'
+    } else if (error?.status === 404) {
+      errorMessage = 'Service or template not found. Please verify your EmailJS IDs.'
+    } else if (error?.text) {
+      errorMessage = `Error: ${error.text}`
+    }
+    
     return {
       success: false,
-      message:
-        'Sorry, there was an error sending your message. Please try again later.',
+      message: errorMessage,
     }
   }
 }

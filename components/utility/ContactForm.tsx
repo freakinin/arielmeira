@@ -16,9 +16,9 @@ const inquiryTypes = [
 export default function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
-    email: '',
-    message: '',
-    inquiryType: 'general',
+    email: 'test@example.com', // Default for debugging
+    message: 'Test message', // Default for debugging
+    inquiryType: 'general', // Default for debugging
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<{
@@ -41,15 +41,16 @@ export default function ContactForm() {
       if (result.success) {
         setFormData({
           name: '',
-          email: '',
-          message: '',
-          inquiryType: 'general',
+          email: 'test@example.com', // Reset to default for debugging
+          message: 'Test message', // Reset to default for debugging
+          inquiryType: 'general', // Reset to default for debugging
         })
       }
-    } catch (error) {
+    } catch (error: any) {
+      console.error('Form submission error:', error)
       setSubmitStatus({
         type: 'error',
-        message: 'An unexpected error occurred. Please try again.',
+        message: error?.message || 'An unexpected error occurred. Please try again.',
       })
     } finally {
       setIsSubmitting(false)
@@ -75,6 +76,13 @@ export default function ContactForm() {
       className="bg-white p-8 rounded-lg shadow-sm"
     >
       <div className="space-y-6">
+        {/* DEBUG MODE: Only showing name field for easier debugging */}
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+          <p className="text-sm text-yellow-800">
+            <strong>Debug Mode:</strong> Only name field visible. Other fields use default test values.
+          </p>
+        </div>
+
         {/* Name */}
         <div>
           <label
@@ -95,8 +103,9 @@ export default function ContactForm() {
           />
         </div>
 
-        {/* Email */}
-        <div>
+        {/* Hidden fields for debugging - using defaults */}
+        {/* Email - hidden */}
+        {/* <div>
           <label
             htmlFor="email"
             className="block text-sm font-medium text-sage-900 mb-2"
@@ -113,10 +122,10 @@ export default function ContactForm() {
             className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-sage-500 focus:border-sage-500 transition-colors duration-300"
             placeholder="your.email@example.com"
           />
-        </div>
+        </div> */}
 
-        {/* Inquiry Type */}
-        <div>
+        {/* Inquiry Type - hidden */}
+        {/* <div>
           <label
             htmlFor="inquiryType"
             className="block text-sm font-medium text-sage-900 mb-2"
@@ -137,10 +146,10 @@ export default function ContactForm() {
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
 
-        {/* Message */}
-        <div>
+        {/* Message - hidden */}
+        {/* <div>
           <label
             htmlFor="message"
             className="block text-sm font-medium text-sage-900 mb-2"
@@ -157,7 +166,7 @@ export default function ContactForm() {
             className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-sage-500 focus:border-sage-500 transition-colors duration-300 resize-none"
             placeholder="Tell us about your inquiry..."
           />
-        </div>
+        </div> */}
 
         {/* Submit Button */}
         <motion.button
