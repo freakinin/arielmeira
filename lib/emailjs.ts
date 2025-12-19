@@ -7,6 +7,20 @@ const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || ''
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || ''
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
 
+// Debug: Log environment variables (only in development)
+if (typeof window !== 'undefined') {
+  console.log('EmailJS Environment Variables Check:', {
+    SERVICE_ID: SERVICE_ID || 'MISSING',
+    TEMPLATE_ID: TEMPLATE_ID || 'MISSING',
+    PUBLIC_KEY: PUBLIC_KEY ? 'SET' : 'MISSING',
+    allEnvVars: {
+      NEXT_PUBLIC_EMAILJS_SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'NOT FOUND',
+      NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'NOT FOUND',
+      NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? 'SET' : 'NOT FOUND',
+    }
+  })
+}
+
 export interface EmailJSResponse {
   success: boolean
   message: string
