@@ -1,150 +1,229 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { fadeInUp, staggerContainer, scaleIn } from '@/lib/animations'
+import { motion, AnimatePresence } from 'framer-motion'
+import { fadeInUp, staggerContainer } from '@/lib/animations'
 import { galleryImages } from '@/data/mockData'
 
-type Masonry = {
-  layout?: () => void
-  destroy?: () => void
-}
-
 export default function Gallery() {
-  const gridRef = useRef<HTMLDivElement>(null)
-  const masonryRef = useRef<Masonry | null>(null)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    if (!gridRef.current || typeof window === 'undefined') return
-
-    let cleanup: (() => void) | null = null
-
-    // Dynamically import masonry-layout only on client side
-    import('masonry-layout').then((MasonryModule) => {
-      const Masonry = MasonryModule.default || MasonryModule
-      if (!gridRef.current) return
-
-      // Initialize Masonry with sizer element
-      masonryRef.current = new Masonry(gridRef.current, {
-        itemSelector: '.gallery-item',
-        columnWidth: '.gallery-sizer',
-        percentPosition: true,
-        gutter: 24,
-      }) as Masonry
-
-      // Recalculate layout when images load
-      const images = gridRef.current.querySelectorAll('img')
-      let loadedCount = 0
-      const totalImages = images.length
-
-      const handleImageLoad = () => {
-        loadedCount++
-        if (loadedCount === totalImages && masonryRef.current) {
-          masonryRef.current.layout?.()
-        }
-      }
-
-      images.forEach((img) => {
-        if (img.complete) {
-          handleImageLoad()
-        } else {
-          img.addEventListener('load', handleImageLoad)
-        }
-      })
-
-      // Handle window resize
-      const handleResize = () => {
-        if (masonryRef.current) {
-          masonryRef.current.layout?.()
-        }
-      }
-
-      window.addEventListener('resize', handleResize)
-
-      // Set up cleanup function
-      cleanup = () => {
-        if (masonryRef.current) {
-          masonryRef.current.destroy?.()
-        }
-        images.forEach((img) => {
-          img.removeEventListener('load', handleImageLoad)
-        })
-        window.removeEventListener('resize', handleResize)
-      }
-    })
-
-    // Cleanup
-    return () => {
-      if (cleanup) {
-        cleanup()
-      }
-    }
+    setMounted(true)
   }, [])
 
-  return (
-    <section
-      id="gallery"
-      className="section-padding bg-wheat-100"
-    >
-      <div className="container mx-auto container-padding">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={staggerContainer}
-        >
-          <motion.h2
-            variants={fadeInUp}
-            className="font-serif text-4xl md:text-5xl font-bold text-evergreen-900 text-center mb-12"
-          >
-            Gallery
-          </motion.h2>
+  const openLightbox = (src: string) => {
+    setSelectedImage(src)
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = 'hidden'
+    }
+  }
 
-          {galleryImages.length > 0 ? (
-            <div className="w-full max-w-6xl mx-auto">
-              <div ref={gridRef} className="gallery-grid">
-                {/* Sizer element for column width - 3 columns with 24px gutter */}
-                <div className="gallery-sizer" style={{ width: 'calc(33.333% - 16px)' }}></div>
-                
-                {galleryImages.slice(0, 6).map((image) => (
-                  <motion.div
-                    key={image.id}
-                    variants={scaleIn}
-                    className="gallery-item relative overflow-hidden rounded-lg bg-stone-200 mb-6"
-                    style={{ width: 'calc(33.333% - 16px)' }}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      width={800}
-                      height={1000}
-                      className="w-full h-auto"
-                      sizes="33vw"
-                      quality={90}
-                    />
-                    {image.caption && (
-                      <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-4">
-                        <p className="text-sm">{image.caption}</p>
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <motion.p
+  const closeLightbox = () => {
+    setSelectedImage(null)
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = 'unset'
+    }
+  }
+
+  // Close on ESC key
+  useEffect(() => {
+    if (!mounted || !selectedImage) return
+    
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeLightbox()
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [selectedImage, mounted])
+
+  return (
+    <>
+      <section
+        id="gallery"
+        className="section-padding bg-wheat-100"
+      >
+        <div className="container mx-auto container-padding">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerContainer}
+          >
+            <motion.h2
               variants={fadeInUp}
-              className="text-center text-stone-600 text-lg"
+              className="font-serif text-4xl md:text-5xl font-bold text-evergreen-900 text-center mb-12"
             >
-              Gallery images will be displayed here
-            </motion.p>
+              Gallery
+            </motion.h2>
+
+            {galleryImages.length > 0 ? (
+              <div className="w-full max-w-6xl mx-auto">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                  {galleryImages.slice(0, 6).map((image) => (
+                    <motion.div
+                      key={image.id}
+                      variants={fadeInUp}
+                      className="relative overflow-hidden rounded-lg bg-stone-200 aspect-square group cursor-pointer"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
+                      onClick={() => openLightbox(image.src)}
+                    >
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        className="object-cover group-hover:opacity-90 transition-opacity duration-300"
+                        sizes="(max-width: 768px) 50vw, 33vw"
+                        quality={85}
+                      />
+                      {image.caption && (
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-2 md:p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <p className="text-xs md:text-sm">{image.caption}</p>
+                        </div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <motion.p
+                variants={fadeInUp}
+                className="text-center text-stone-600 text-lg"
+              >
+                Gallery images will be displayed here
+              </motion.p>
+            )}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Lightbox Modal - Only render when mounted */}
+      {mounted && (
+        <AnimatePresence>
+          {selectedImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
+              onClick={closeLightbox}
+            >
+              {/* Close Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  closeLightbox()
+                }}
+                className="absolute top-4 right-4 text-white hover:text-stone-300 transition-colors z-10"
+                aria-label="Close lightbox"
+              >
+                <svg
+                  className="w-8 h-8 md:w-10 md:h-10"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
+              {/* Image */}
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="relative max-w-7xl max-h-[90vh] w-full h-full"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={selectedImage}
+                  alt="Gallery image"
+                  fill
+                  className="object-contain"
+                  sizes="100vw"
+                  quality={95}
+                />
+              </motion.div>
+
+              {/* Navigation Arrows */}
+              {galleryImages.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      const currentIndex = galleryImages.findIndex(
+                        (img) => img.src === selectedImage
+                      )
+                      const prevIndex =
+                        currentIndex > 0
+                          ? currentIndex - 1
+                          : galleryImages.length - 1
+                      setSelectedImage(galleryImages[prevIndex].src)
+                    }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-stone-300 transition-colors z-10 bg-black/50 rounded-full p-2 md:p-3"
+                    aria-label="Previous image"
+                  >
+                    <svg
+                      className="w-6 h-6 md:w-8 md:h-8"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      const currentIndex = galleryImages.findIndex(
+                        (img) => img.src === selectedImage
+                      )
+                      const nextIndex =
+                        currentIndex < galleryImages.length - 1
+                          ? currentIndex + 1
+                          : 0
+                      setSelectedImage(galleryImages[nextIndex].src)
+                    }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-stone-300 transition-colors z-10 bg-black/50 rounded-full p-2 md:p-3"
+                    aria-label="Next image"
+                  >
+                    <svg
+                      className="w-6 h-6 md:w-8 md:h-8"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                </>
+              )}
+            </motion.div>
           )}
-        </motion.div>
-      </div>
-    </section>
+        </AnimatePresence>
+      )}
+    </>
   )
 }
-

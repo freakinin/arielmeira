@@ -50,7 +50,7 @@ export default function Artists() {
                       src={artist.image}
                       alt={artist.name}
                       fill
-                      className="object-cover"
+                      className={artist.name === 'Ariel Berli' ? 'object-cover object-top' : 'object-cover'}
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
