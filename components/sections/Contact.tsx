@@ -31,7 +31,7 @@ export default function Contact() {
             variants={fadeInUp}
             className="text-center text-stone-700 text-lg mb-12 leading-relaxed"
           >
-            We'd love to hear from you! For booking inquiries, collaborations, or press requests, please reach out to us directly.
+            We&apos;d love to hear from you! For booking inquiries, collaborations, or press requests, please reach out to us directly.
           </motion.p>
 
           <motion.div
