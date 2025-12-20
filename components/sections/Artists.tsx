@@ -8,7 +8,7 @@ const artists = [
   {
     name: 'Meira Segal',
     bio: 'Meira Segal is a talented musician known for her exceptional skill and artistic expression. Her musical journey has been marked by dedication to her craft and a passion for creating beautiful, meaningful music.',
-    image: '/images/artists/meira.jpg',
+    image: '/images/artists/meira.JPG',
     instagram: '', // Add Instagram link here
   },
   {
