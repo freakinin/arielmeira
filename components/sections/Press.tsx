@@ -8,7 +8,7 @@ export default function Press() {
   return (
     <section
       id="press"
-      className="section-padding bg-earth-50"
+      className="section-padding bg-wheat-100"
     >
       <div className="container mx-auto container-padding">
         <motion.div
@@ -19,7 +19,7 @@ export default function Press() {
         >
           <motion.h2
             variants={fadeInUp}
-            className="font-serif text-4xl md:text-5xl font-bold text-sage-900 text-center mb-12"
+            className="font-serif text-4xl md:text-5xl font-bold text-evergreen-900 text-center mb-12"
           >
             Press
           </motion.h2>
@@ -37,7 +37,7 @@ export default function Press() {
                   className="bg-white p-8 rounded-lg shadow-sm"
                 >
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="text-xs font-semibold text-sage-600 uppercase tracking-wide">
+                    <span className="text-xs font-semibold text-evergreen-600 uppercase tracking-wide">
                       {item.type}
                     </span>
                     {item.date && (
@@ -46,12 +46,12 @@ export default function Press() {
                       </span>
                     )}
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-sage-900 mb-2">
+                  <h3 className="font-serif text-xl font-semibold text-evergreen-900 mb-2">
                     {item.title}
                   </h3>
                   <p className="text-stone-600 mb-4">{item.source}</p>
                   {item.quote && (
-                    <blockquote className="border-l-4 border-sage-300 pl-4 italic text-sage-700 mb-4">
+                    <blockquote className="border-l-4 border-evergreen-300 pl-4 italic text-evergreen-700 mb-4">
                       &ldquo;{item.quote}&rdquo;
                     </blockquote>
                   )}
@@ -63,7 +63,7 @@ export default function Press() {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sage-600 hover:text-sage-700 underline text-sm"
+                      className="text-evergreen-600 hover:text-evergreen-700 underline text-sm"
                     >
                       Read more →
                     </a>
@@ -86,7 +86,7 @@ export default function Press() {
               variants={fadeInUp}
               className="bg-white p-8 rounded-lg shadow-sm"
             >
-              <h3 className="font-serif text-2xl font-semibold text-sage-900 mb-6">
+              <h3 className="font-serif text-2xl font-semibold text-evergreen-900 mb-6">
                 Press Materials
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
@@ -98,7 +98,7 @@ export default function Press() {
                     className="flex items-center justify-between p-4 border border-stone-200 rounded-lg hover:bg-stone-50 transition-colors duration-300"
                   >
                     <div>
-                      <p className="font-medium text-sage-900">
+                      <p className="font-medium text-evergreen-900">
                         {material.name}
                       </p>
                       <p className="text-sm text-stone-600">

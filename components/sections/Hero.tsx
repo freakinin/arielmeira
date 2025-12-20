@@ -17,7 +17,7 @@ export default function Hero() {
       }}
     >
       {/* Overlay for text readability */}
-      <div className="absolute inset-0 bg-stone-900/40"></div>
+      <div className="absolute inset-0 bg-black/40"></div>
 
       <div className="container mx-auto container-padding text-center z-10 relative">
         <motion.div
@@ -35,14 +35,14 @@ export default function Hero() {
 
           <motion.p
             variants={fadeInUp}
-            className="font-serif-alt text-2xl md:text-3xl text-stone-100 mb-8 italic drop-shadow-md"
+            className="font-serif-alt text-2xl md:text-3xl text-white mb-8 italic drop-shadow-md"
           >
             {duoData.tagline || 'Elegant music for meditation and contemplation'}
           </motion.p>
 
           <motion.p
             variants={fadeInUp}
-            className="text-lg md:text-xl text-stone-100 max-w-2xl mx-auto leading-relaxed mb-12 drop-shadow-md"
+            className="text-lg md:text-xl text-white max-w-2xl mx-auto leading-relaxed mb-12 drop-shadow-md"
           >
             {duoData.description ||
               'Experience tranquility through sophisticated compositions blending classical elegance, jazz sophistication, and meditative serenity.'}
@@ -50,23 +50,15 @@ export default function Hero() {
 
           <motion.div
             variants={fadeInUp}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex justify-center"
           >
             <motion.a
               href="#music"
-              className="px-8 py-4 bg-sage-600 text-white rounded-lg font-medium hover:bg-sage-700 transition-colors duration-300"
+              className="px-8 py-4 bg-evergreen-500 text-white rounded-lg font-medium hover:bg-evergreen-600 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Listen Now
-            </motion.a>
-            <motion.a
-              href="#contact"
-              className="px-8 py-4 border-2 border-sage-600 text-sage-700 rounded-lg font-medium hover:bg-sage-50 transition-colors duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Book a Session
             </motion.a>
           </motion.div>
         </motion.div>

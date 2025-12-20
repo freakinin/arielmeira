@@ -2,14 +2,19 @@
 
 import { motion } from 'framer-motion'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
-import { musicTracks } from '@/data/mockData'
-import MusicPlayer from '@/components/utility/MusicPlayer'
+import YouTubeThumbnail from '@/components/utility/YouTubeThumbnail'
+
+const youtubeVideos = [
+  { id: '2a_jyuGPZcQ', title: 'Ariel & Meira - Meditation Suite' },
+  { id: 'BDch7Hu9fSc', title: 'Ariel & Meira - Jazz Reflections' },
+  { id: '2a_jyuGPZcQ', title: 'Ariel & Meira - Meditation Suite' }, // Show first one twice
+]
 
 export default function Music() {
   return (
     <section
       id="music"
-      className="section-padding bg-earth-50"
+      className="pt-6 pb-8 md:pb-12 bg-wheat-100"
     >
       <div className="container mx-auto container-padding">
         <motion.div
@@ -20,64 +25,24 @@ export default function Music() {
         >
           <motion.h2
             variants={fadeInUp}
-            className="font-serif text-4xl md:text-5xl font-bold text-sage-900 text-center mb-12"
+            className="font-serif text-4xl md:text-5xl font-bold text-evergreen-900 text-center mb-6"
           >
-            Music
+            Enjoy our music
           </motion.h2>
 
-          {musicTracks.length > 0 ? (
-            <motion.div
-              variants={staggerContainer}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {musicTracks.map((track) => (
-                <motion.div
-                  key={track.id}
-                  variants={fadeInUp}
-                  className="bg-white rounded-lg shadow-sm overflow-hidden"
-                >
-                  <MusicPlayer track={track} />
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.p
-              variants={fadeInUp}
-              className="text-center text-stone-600 text-lg"
-            >
-              Music tracks will be displayed here
-            </motion.p>
-          )}
-
-          {/* Streaming Platforms */}
-          <motion.div
-            variants={fadeInUp}
-            className="mt-16 text-center"
-          >
-            <h3 className="font-serif text-2xl font-semibold text-sage-900 mb-6">
-              Listen on Streaming Platforms
-            </h3>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="#"
-                className="px-6 py-3 bg-stone-800 text-white rounded-lg hover:bg-stone-700 transition-colors duration-300"
+          {/* 3 video thumbnails grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {youtubeVideos.slice(0, 3).map((video, index) => (
+              <motion.div
+                key={`${video.id}-${index}`}
+                variants={fadeInUp}
               >
-                Spotify
-              </a>
-              <a
-                href="#"
-                className="px-6 py-3 bg-stone-800 text-white rounded-lg hover:bg-stone-700 transition-colors duration-300"
-              >
-                Apple Music
-              </a>
-              <a
-                href="#"
-                className="px-6 py-3 bg-stone-800 text-white rounded-lg hover:bg-stone-700 transition-colors duration-300"
-              >
-                YouTube Music
-              </a>
-            </div>
-          </motion.div>
+                <div className="aspect-video w-full">
+                  <YouTubeThumbnail videoId={video.id} />
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

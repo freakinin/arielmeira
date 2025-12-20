@@ -14,14 +14,14 @@ export default function MusicPlayer({ track }: MusicPlayerProps) {
           <span className="text-stone-400 text-sm">Cover image</span>
         </div>
       )}
-      <h3 className="font-serif text-xl font-semibold text-sage-900 mb-2">
+      <h3 className="font-serif text-xl font-semibold text-evergreen-900 mb-2">
         {track.title}
       </h3>
       {track.description && (
         <p className="text-stone-600 text-sm mb-4">{track.description}</p>
       )}
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-xs px-2 py-1 bg-sage-100 text-sage-700 rounded">
+        <span className="text-xs px-2 py-1 bg-evergreen-100 text-evergreen-700 rounded">
           {track.category}
         </span>
         {track.duration && (
@@ -40,7 +40,7 @@ export default function MusicPlayer({ track }: MusicPlayerProps) {
             href={track.spotifyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-sage-600 hover:text-sage-700"
+            className="text-sm text-evergreen-600 hover:text-evergreen-700"
           >
             Spotify
           </a>
@@ -50,7 +50,7 @@ export default function MusicPlayer({ track }: MusicPlayerProps) {
             href={track.appleMusicUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-sage-600 hover:text-sage-700"
+            className="text-sm text-evergreen-600 hover:text-evergreen-700"
           >
             Apple Music
           </a>

@@ -2,13 +2,15 @@
 
 import { motion } from 'framer-motion'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
-import ContactForm from '@/components/utility/ContactForm'
 
 export default function Contact() {
+  const email = 'arielandmeira@gmail.com'
+  const phone = '+972 502188228'
+
   return (
     <section
       id="contact"
-      className="section-padding bg-stone-50"
+      className="section-padding bg-wheat-100"
     >
       <div className="container mx-auto container-padding">
         <motion.div
@@ -16,35 +18,47 @@ export default function Contact() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={staggerContainer}
-          className="max-w-3xl mx-auto"
+          className="max-w-4xl mx-auto"
         >
           <motion.h2
             variants={fadeInUp}
-            className="font-serif text-4xl md:text-5xl font-bold text-sage-900 text-center mb-6"
+            className="font-serif text-4xl md:text-5xl font-bold text-evergreen-900 text-center mb-6"
           >
             Contact
           </motion.h2>
 
           <motion.p
             variants={fadeInUp}
-            className="text-center text-stone-600 text-lg mb-12"
+            className="text-center text-stone-700 text-lg mb-12 leading-relaxed"
           >
-            For booking inquiries, collaborations, or press requests, please get
-            in touch.
+            We'd love to hear from you! For booking inquiries, collaborations, or press requests, please reach out to us directly.
           </motion.p>
 
-          {/* Contact form temporarily disabled - EmailJS configuration in progress */}
-          {/* <motion.div variants={fadeInUp}>
-            <ContactForm />
-          </motion.div> */}
-          
           <motion.div
             variants={fadeInUp}
-            className="bg-stone-100 p-8 rounded-lg text-center"
+            className="bg-white p-8 rounded-lg shadow-sm max-w-md mx-auto"
           >
-            <p className="text-stone-600">
-              Contact form coming soon. Please reach out via email or social media.
-            </p>
+            <div className="space-y-6">
+              <div>
+                <p className="text-sm text-stone-500 mb-2 text-center">Email</p>
+                <a
+                  href={`mailto:${email}`}
+                  className="text-evergreen-700 hover:text-evergreen-900 transition-colors break-all text-center block"
+                >
+                  {email}
+                </a>
+              </div>
+              
+              <div>
+                <p className="text-sm text-stone-500 mb-2 text-center">Phone</p>
+                <a
+                  href={`tel:${phone.replace(/\s/g, '')}`}
+                  className="text-evergreen-700 hover:text-evergreen-900 transition-colors text-center block"
+                >
+                  {phone}
+                </a>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

@@ -9,44 +9,45 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Calming, meditative color palette
-        sage: {
-          50: '#f6f7f6',
-          100: '#e3e7e3',
-          200: '#c7d0c7',
-          300: '#a3b0a3',
-          400: '#7d8d7d',
-          500: '#627162',
-          600: '#4d5a4d',
-          700: '#404a40',
-          800: '#363e36',
-          900: '#2f352f',
+        // Main color palette: Wheat, Evergreen, Stone Brown
+        wheat: {
+          50: '#fefbf7',
+          100: '#fdf7ef',
+          200: '#faf0d7',
+          300: '#f7e8bf',
+          400: '#f4e0a7',
+          500: '#F1D8AA', // Main wheat color
+          600: '#d4c299',
+          700: '#b7ac88',
+          800: '#9a9677',
+          900: '#7d8066',
         },
-        earth: {
-          50: '#faf9f7',
-          100: '#f3f1ed',
-          200: '#e6e1d9',
-          300: '#d4cbc0',
-          400: '#b8ab9c',
-          500: '#9d8e7d',
-          600: '#8a7a6a',
-          700: '#73655a',
-          800: '#60554c',
-          900: '#504842',
-        },
-        ocean: {
-          50: '#f0f4f8',
-          100: '#d9e4ed',
-          200: '#b8cddd',
-          300: '#8aafc7',
-          400: '#5c8aab',
-          500: '#416f91',
-          600: '#355a78',
-          700: '#2f4c63',
-          800: '#2a4153',
-          900: '#273847',
+        evergreen: {
+          50: '#e6f0eb',
+          100: '#b3d1c0',
+          200: '#80b295',
+          300: '#4d936a',
+          400: '#1a743f',
+          500: '#01200F', // Main evergreen color
+          600: '#011a0c',
+          700: '#011309',
+          800: '#010d06',
+          900: '#000603',
         },
         stone: {
+          50: '#f5f4f2',
+          100: '#e8e6e2',
+          200: '#d1cdc5',
+          300: '#bab4a8',
+          400: '#a39b8b',
+          500: '#6B6054', // Main stone brown color
+          600: '#5a5248',
+          700: '#49443c',
+          800: '#383630',
+          900: '#272824',
+        },
+        // Keep stone for neutral grays
+        neutral: {
           50: '#fafafa',
           100: '#f5f5f5',
           200: '#e5e5e5',

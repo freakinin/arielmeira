@@ -8,7 +8,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-stone-900 text-stone-300 section-padding">
+    <footer className="bg-evergreen-900 text-wheat-100 section-padding">
       <div className="container mx-auto container-padding">
         <motion.div
           initial="hidden"
@@ -19,10 +19,12 @@ export default function Footer() {
         >
           {/* Brand */}
           <div>
-            <h3 className="font-serif text-2xl font-semibold text-stone-50 mb-4">
-              Ariel & Meira
-            </h3>
-            <p className="text-stone-400 text-sm leading-relaxed">
+            <img
+              src="/images/logo.PNG"
+              alt="Ariel & Meira"
+              className="h-12 w-auto mb-4"
+            />
+            <p className="text-stone-300 text-sm leading-relaxed">
               Elegant instrumental music for meditation, relaxation, and
               contemplation.
             </p>
@@ -30,12 +32,12 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-stone-50 mb-4">Quick Links</h4>
+            <h4 className="font-semibold text-wheat-100 mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
                   href="#about"
-                  className="text-stone-400 hover:text-stone-50 transition-colors duration-300"
+                  className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
                 >
                   About
                 </a>
@@ -43,23 +45,15 @@ export default function Footer() {
               <li>
                 <a
                   href="#music"
-                  className="text-stone-400 hover:text-stone-50 transition-colors duration-300"
+                  className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
                 >
                   Music
                 </a>
               </li>
               <li>
                 <a
-                  href="#press"
-                  className="text-stone-400 hover:text-stone-50 transition-colors duration-300"
-                >
-                  Press
-                </a>
-              </li>
-              <li>
-                <a
                   href="#contact"
-                  className="text-stone-400 hover:text-stone-50 transition-colors duration-300"
+                  className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
                 >
                   Contact
                 </a>
@@ -70,7 +64,7 @@ export default function Footer() {
           {/* Social Links */}
           {socialLinks.length > 0 && (
             <div>
-              <h4 className="font-semibold text-stone-50 mb-4">Connect</h4>
+              <h4 className="font-semibold text-wheat-100 mb-4">Connect</h4>
               <ul className="space-y-2 text-sm">
                 {socialLinks.map((link) => (
                   <li key={link.platform}>
@@ -78,7 +72,7 @@ export default function Footer() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-stone-400 hover:text-stone-50 transition-colors duration-300"
+                      className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
                     >
                       {link.platform}
                     </a>
@@ -95,7 +89,7 @@ export default function Footer() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeIn}
-          className="border-t border-stone-800 pt-8 text-center text-sm text-stone-500"
+          className="border-t border-evergreen-800 pt-8 text-center text-sm text-stone-400"
         >
           <p>© {currentYear} Ariel & Meira. All rights reserved.</p>
         </motion.div>

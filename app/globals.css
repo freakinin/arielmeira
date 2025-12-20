@@ -5,25 +5,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
-  /* Brand Colors - Calming Meditation Palette */
-  --color-sage-50: #f6f7f6;
-  --color-sage-100: #e3e7e3;
-  --color-sage-500: #627162;
-  --color-sage-900: #2f352f;
+  /* Brand Colors - Main Palette */
+  --color-wheat-50: #fefbf7;
+  --color-wheat-100: #fdf7ef;
+  --color-wheat-500: #F1D8AA;
+  --color-wheat-900: #7d8066;
   
-  --color-earth-50: #faf9f7;
-  --color-earth-100: #f3f1ed;
-  --color-earth-500: #9d8e7d;
-  --color-earth-900: #504842;
+  --color-evergreen-50: #e6f0eb;
+  --color-evergreen-100: #b3d1c0;
+  --color-evergreen-500: #01200F;
+  --color-evergreen-900: #000603;
   
-  --color-ocean-50: #f0f4f8;
-  --color-ocean-500: #416f91;
-  --color-ocean-900: #273847;
+  --color-stone-50: #f5f4f2;
+  --color-stone-100: #e8e6e2;
+  --color-stone-500: #6B6054;
+  --color-stone-900: #272824;
   
-  --color-stone-50: #fafafa;
-  --color-stone-100: #f5f5f5;
-  --color-stone-500: #737373;
-  --color-stone-900: #171717;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-500: #737373;
+  --color-neutral-900: #171717;
 
   /* Typography */
   --font-playfair: 'Playfair Display', Georgia, serif;
@@ -45,7 +46,9 @@
   }
 
   body {
-    @apply bg-stone-50 text-stone-900 antialiased;
+    @apply antialiased;
+    background-color: #fdf7ef; /* wheat-100 */
+    color: #000603; /* evergreen-900 fallback */
     font-family: var(--font-inter);
   }
 
@@ -61,7 +64,7 @@
   }
 
   .section-padding {
-    @apply py-section-sm md:py-section;
+    @apply py-8 md:py-12;
   }
 
   .container-padding {
@@ -81,7 +84,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-stone-100;
+  background-color: var(--color-wheat-100);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -90,5 +93,18 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-stone-500;
+}
+
+/* Masonry Gallery Styles */
+.gallery-grid {
+  position: relative;
+}
+
+.gallery-sizer {
+  visibility: hidden;
+}
+
+.gallery-item {
+  margin-bottom: 24px;
 }
 
