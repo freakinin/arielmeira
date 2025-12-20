@@ -2,60 +2,83 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import Masonry from 'masonry-layout'
 import { motion } from 'framer-motion'
 import { fadeInUp, staggerContainer, scaleIn } from '@/lib/animations'
 import { galleryImages } from '@/data/mockData'
+
+type Masonry = {
+  layout?: () => void
+  destroy?: () => void
+}
 
 export default function Gallery() {
   const gridRef = useRef<HTMLDivElement>(null)
   const masonryRef = useRef<Masonry | null>(null)
 
   useEffect(() => {
-    if (!gridRef.current) return
+    if (!gridRef.current || typeof window === 'undefined') return
 
-    // Initialize Masonry with sizer element
-    masonryRef.current = new Masonry(gridRef.current, {
-      itemSelector: '.gallery-item',
-      columnWidth: '.gallery-sizer',
-      percentPosition: true,
-      gutter: 24,
-    })
+    let cleanup: (() => void) | null = null
 
-    // Recalculate layout when images load
-    const images = gridRef.current.querySelectorAll('img')
-    let loadedCount = 0
-    const totalImages = images.length
+    // Dynamically import masonry-layout only on client side
+    import('masonry-layout').then((MasonryModule) => {
+      const Masonry = MasonryModule.default || MasonryModule
+      if (!gridRef.current) return
 
-    const handleImageLoad = () => {
-      loadedCount++
-      if (loadedCount === totalImages) {
-        masonryRef.current?.layout()
+      // Initialize Masonry with sizer element
+      masonryRef.current = new Masonry(gridRef.current, {
+        itemSelector: '.gallery-item',
+        columnWidth: '.gallery-sizer',
+        percentPosition: true,
+        gutter: 24,
+      }) as Masonry
+
+      // Recalculate layout when images load
+      const images = gridRef.current.querySelectorAll('img')
+      let loadedCount = 0
+      const totalImages = images.length
+
+      const handleImageLoad = () => {
+        loadedCount++
+        if (loadedCount === totalImages && masonryRef.current) {
+          masonryRef.current.layout?.()
+        }
       }
-    }
 
-    images.forEach((img) => {
-      if (img.complete) {
-        handleImageLoad()
-      } else {
-        img.addEventListener('load', handleImageLoad)
+      images.forEach((img) => {
+        if (img.complete) {
+          handleImageLoad()
+        } else {
+          img.addEventListener('load', handleImageLoad)
+        }
+      })
+
+      // Handle window resize
+      const handleResize = () => {
+        if (masonryRef.current) {
+          masonryRef.current.layout?.()
+        }
+      }
+
+      window.addEventListener('resize', handleResize)
+
+      // Set up cleanup function
+      cleanup = () => {
+        if (masonryRef.current) {
+          masonryRef.current.destroy?.()
+        }
+        images.forEach((img) => {
+          img.removeEventListener('load', handleImageLoad)
+        })
+        window.removeEventListener('resize', handleResize)
       }
     })
-
-    // Handle window resize
-    const handleResize = () => {
-      masonryRef.current?.layout()
-    }
-
-    window.addEventListener('resize', handleResize)
 
     // Cleanup
     return () => {
-      masonryRef.current?.destroy()
-      images.forEach((img) => {
-        img.removeEventListener('load', handleImageLoad)
-      })
-      window.removeEventListener('resize', handleResize)
+      if (cleanup) {
+        cleanup()
+      }
     }
   }, [])
 
