@@ -29,8 +29,8 @@ export default function Gallery() {
 
     const handleImageLoad = () => {
       loadedCount++
-      if (loadedCount === totalImages && masonryRef.current) {
-        masonryRef.current.layout()
+      if (loadedCount === totalImages) {
+        masonryRef.current?.layout()
       }
     }
 
@@ -44,18 +44,14 @@ export default function Gallery() {
 
     // Handle window resize
     const handleResize = () => {
-      if (masonryRef.current) {
-        masonryRef.current.layout()
-      }
+      masonryRef.current?.layout()
     }
 
     window.addEventListener('resize', handleResize)
 
     // Cleanup
     return () => {
-      if (masonryRef.current) {
-        masonryRef.current.destroy()
-      }
+      masonryRef.current?.destroy()
       images.forEach((img) => {
         img.removeEventListener('load', handleImageLoad)
       })
