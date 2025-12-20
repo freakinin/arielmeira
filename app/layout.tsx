@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Crimson_Text, Inter } from 'next/font/google'
-import Script from 'next/script'
+import GoogleAnalytics from '@/components/utility/GoogleAnalytics'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -52,28 +52,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-  const isProduction = process.env.NODE_ENV === 'production'
-
   return (
     <html lang="en" className={`${playfair.variable} ${crimson.variable} ${inter.variable}`}>
       <body>
-        {gaMeasurementId && isProduction && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${gaMeasurementId}');
-              `}
-            </Script>
-          </>
-        )}
+        <GoogleAnalytics />
         {children}
       </body>
     </html>
