@@ -54,7 +54,7 @@ export default function HostArtists() {
                       src={artist.image}
                       alt={artist.name}
                       fill
-                      className="object-cover"
+                      className="object-cover object-top"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>

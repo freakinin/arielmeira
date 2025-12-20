@@ -8,90 +8,54 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-evergreen-900 text-wheat-100 section-padding">
+    <footer className="bg-evergreen-900 text-wheat-100 py-8 md:py-10">
       <div className="container mx-auto container-padding">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeIn}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
         >
-          {/* Brand */}
-          <div>
-            <img
-              src="/images/logo.PNG"
-              alt="Ariel & Meira"
-              className="h-12 w-auto mb-4"
-            />
-            <p className="text-stone-300 text-sm leading-relaxed">
-              Elegant instrumental music for meditation, relaxation, and
-              contemplation.
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-semibold text-wheat-100 mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a
-                  href="#about"
-                  className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#music"
-                  className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
-                >
-                  Music
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Social Links */}
-          {socialLinks.length > 0 && (
+          {/* Brand and Links row */}
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
             <div>
-              <h4 className="font-semibold text-wheat-100 mb-4">Connect</h4>
-              <ul className="space-y-2 text-sm">
-                {socialLinks.map((link) => (
-                  <li key={link.platform}>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
-                    >
-                      {link.platform}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <img
+                src="/images/logo.PNG"
+                alt="Ariel & Meira"
+                className="h-12 w-auto mb-4"
+              />
+              <p className="text-stone-300 text-sm leading-relaxed mb-2">
+                Elegant instrumental music for meditation, relaxation, and
+                contemplation.
+              </p>
+              <p className="text-stone-400 text-sm">
+                © {currentYear} Ariel & Meira. All rights reserved.
+              </p>
             </div>
-          )}
-        </motion.div>
-
-        {/* Copyright */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeIn}
-          className="border-t border-evergreen-800 pt-8 text-center text-sm text-stone-400"
-        >
-          <p>© {currentYear} Ariel & Meira. All rights reserved.</p>
+            {/* Quick Links in one line */}
+            <div className="flex flex-wrap items-center gap-2 text-sm">
+              <a
+                href="#about"
+                className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
+              >
+                About
+              </a>
+              <span className="text-stone-500">|</span>
+              <a
+                href="#music"
+                className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
+              >
+                Music
+              </a>
+              <span className="text-stone-500">|</span>
+              <a
+                href="#contact"
+                className="text-stone-300 hover:text-wheat-100 transition-colors duration-300"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
         </motion.div>
       </div>
     </footer>

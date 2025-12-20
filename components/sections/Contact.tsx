@@ -36,28 +36,50 @@ export default function Contact() {
 
           <motion.div
             variants={fadeInUp}
-            className="bg-white p-8 rounded-lg shadow-sm max-w-md mx-auto"
+            className="max-w-2xl mx-auto"
           >
-            <div className="space-y-6">
-              <div>
-                <p className="text-sm text-stone-500 mb-2 text-center">Email</p>
-                <a
-                  href={`mailto:${email}`}
-                  className="text-evergreen-700 hover:text-evergreen-900 transition-colors break-all text-center block"
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+              <a
+                href={`mailto:${email}`}
+                className="flex items-center gap-3 text-evergreen-700 hover:text-evergreen-900 transition-colors text-lg"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  {email}
-                </a>
-              </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+                <span className="break-all">{email}</span>
+              </a>
               
-              <div>
-                <p className="text-sm text-stone-500 mb-2 text-center">Phone</p>
-                <a
-                  href={`tel:${phone.replace(/\s/g, '')}`}
-                  className="text-evergreen-700 hover:text-evergreen-900 transition-colors text-center block"
+              <a
+                href={`tel:${phone.replace(/\s/g, '')}`}
+                className="flex items-center gap-3 text-evergreen-700 hover:text-evergreen-900 transition-colors text-lg"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  {phone}
-                </a>
-              </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+                <span>{phone}</span>
+              </a>
             </div>
           </motion.div>
         </motion.div>
